@@ -1,0 +1,62 @@
+<html>
+
+<head>
+    <title>
+        <%=title %>
+    </title>
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="../Public/login.css">
+</head>
+
+<body>
+    <nav class="nav-container">
+        <div>
+            <h1 class="logo">Shandhani Hospitals</h1>
+        </div>
+        <div>
+            <ul class="nav-list">
+                <li class="nav-list-child"><a href="/">Home</a></li>
+                <li class="nav-list-child">Contacts</li>
+                <li class="nav-list-child">About</li>
+                <li class="nav-list-child btn"><a href="/user/login">Sign In</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="hero">
+        <img src="../src/security.svg" />
+        <div class="form">
+            <form id="login-form" class="form-fields">
+                <p class="login-p">Hospital Management Systems</p>
+                <div class="input-class">
+                    <label>Email/Phone Number</label>
+                    <input class="input-width" type="text" name="username" />
+                    <p class="error username-error">Error</p>
+                </div>
+
+                <div class="input-class">
+                    <label>Password</label>
+                    <input class="input-width" type="password" name="password" />
+                    <p class="error password-error">Error</p>
+                </div>
+
+                <p class="error common-error">Error</p>
+
+                <input class="login-btn" type="submit" placeholder="Sign In" />
+            </form>
+        </div>
+    </div>
+    <footer>
+
+    </footer>
+</body>
+
+<script>
+    const form = document.querySelector('#login-form');
+    form.onsubmit = async (e) => {
+        const formdata = new FormData(form);
+        
+    }
+
+</script>
+
+</html>

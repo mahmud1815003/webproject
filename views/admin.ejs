@@ -1,0 +1,191 @@
+<html>
+
+<head>
+    <title>
+        <%=title %>
+    </title>
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="../Public/admin.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+
+<body>
+    <div class="successful">
+        <div>
+            <p class="displayresult">User Added</p>
+        </div>
+    </div>
+    <nav class="nav-container">
+        <div>
+            <h1 class="logo">Shandhani Hospitals</h1>
+        </div>
+        <div>
+            <ul class="nav-list">
+                <li class="nav-list-child"><a href="/">Home</a></li>
+                <li class="nav-list-child">Contacts</li>
+                <li class="nav-list-child">About</li>
+                <li class="nav-list-child btn"><a href="/user/login">Sign In</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="hero">
+        <div class="users">
+            <table>
+                <thead>
+                    <tr>
+                        <td class="x">Avater</td>
+                        <td>Name</td>
+                        <td>Email</td>
+                        <td>Phone</td>
+                        <td>Role</td>
+                        <td>Delete</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% users.forEach((user)=> { %>
+                        <tr id="<%= user._id %>">
+                            <td>
+                                <% if(user.avatar) { %>
+                                    <img src="../Public/uploads/avater/<%= user.avatar%>" />
+                                    <% } else { %>
+                                        <img src="../src/noimage.png" />
+                                        <% } %>
+                            </td>
+                            <td>
+                                <%= user.name %>
+                            </td>
+                            <td>
+                                <%= user.email %>
+                            </td>
+                            <td>
+                                <%= user.mobile %>
+                            </td>
+                            <td>
+                                <%= user.role %>
+                            </td>
+                            <td class="picture"><img onclick="deleteUser('<%= user._id %>')"
+                                    src="../src/trash-solid.svg" /></td>
+                        </tr>
+                        <% }); %>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="form">
+            <form id="sub-form" class="form-fields"  enctype="multipart/form-data">
+                <p class="login-p">Add Patient/Doctor/Admin</p>
+                <div class="input-class">
+                    <label>Email</label>
+                    <input class="input-width" type="text" name="email" />
+                    <p class="error email-error">Error</p>
+                </div>
+
+                <div class="input-class">
+                    <label>Phone Number</label>
+                    <input class="input-width" type="text" name="mobile" />
+                    <p class="error mobile-error">Error</p>
+                </div>
+
+                <div class="input-class">
+                    <label>Name</label>
+                    <input class="input-width" type="text" name="name" />
+                    <p class="error name-error">Error</p>
+                </div>
+
+
+                <div class="input-class">
+                    <label>Role</label>
+                    <input placeholder="admin/doctor/patient" class="input-width" type="text" name="role" />
+                    <p class="error role-error">Error</p>
+                </div>
+
+                <div class="input-class">
+                    <label>Password</label>
+                    <input class="input-width" type="password" name="password" />
+                    <p class="error password-error">Error</p>
+                </div>
+                <div class="input-class">
+                    <label>Avater</label>
+                    <input class="input-width" type="file" name="avatar" />
+                    <p class="error avatar-error">Error</p>
+                </div>
+                <p class="error common-error">Common Error</p>
+                <input type="submit" class="login-btn" placeholder="Submit" />
+            </form>
+        </div>
+    </div>
+    <footer>
+
+    </footer>
+</body>
+
+</html>
+
+<script>
+    const form = document.querySelector('#sub-form');
+
+    //form submit handler
+    form.onsubmit = async (e) => {
+        e.preventDefault();
+        const errorInput = document.querySelectorAll('.error');
+        for (let i = 0; i < errorInput.length; i++) {
+            errorInput[i].style.display = 'none';
+        }
+        const data = new FormData(form);
+        console.log(data);
+        let response = await fetch('/admin', {
+            method: 'POST',
+            body: data
+        });
+        let result = await response.json();
+        console.log(result);
+        if (result.errors) {
+            Object.keys(result.errors).forEach((fieldname) => {
+                //console.log(fieldname);
+                const errorElemnet = document.querySelector(`.${fieldname}-error`);
+                errorElemnet.textContent = result.errors[fieldname].msg;
+                errorElemnet.style.display = 'block';
+            });
+        } else {
+            const successToast = Toastify({
+                text: "User added Successfully",
+                duration: 2000
+            });
+            const reloadToast = Toastify({
+                text: "The List is reloding.....",
+                duration: 2000
+            });
+            successToast.showToast();
+            reloadToast.showToast();
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
+        }
+    }
+
+    async function deleteUser(userId) {
+        const data = await fetch(`/admin/${userId}`, {
+            method: 'DELETE',
+        });
+        const response = await data.json();
+        console.log(response);
+        if (response.error) {
+            const toast = Toastify({
+                text: `${response.error.msg}`,
+                duration: 2000
+            });
+            toast.showToast();
+        } else {
+            const toast = Toastify({
+                text: `${response.data.msg}`,
+                duration: 2000
+            });
+            toast.showToast();
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
+        }
+    }
+
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

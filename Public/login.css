@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', Helvetica, sans-serif;
+}
+
+.nav-container {
+    background-color: #F9A826;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 10px;
+    height: 70px;
+    width: 100%;
+    align-items: center;
+    position: fixed;
+}
+
+.error{
+    width: 80%;
+    color: red;
+    font-weight: bold;
+    text-align: left;
+    display: none;
+}
+
+.logo {
+    font-weight: bold;
+    font-family: 'Roboto';
+}
+
+.nav-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    list-style: none;
+}
+
+
+.btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 6px;
+    font-weight: bold;
+    border-radius: 4px;
+    border: 2px solid black;
+}
+
+.hero {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    text-align: center;
+    background-color: #00FFFF;
+}
+
+.hero>img {
+    width: 50%;
+    height: 50%;
+    padding-left: 2rem;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+
+
+.form-fields{
+    background-color: whitesmoke;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    margin: 10px;
+}
+
+.nav-list>li {
+    margin-left: 15px;
+}
+
+.input-class{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin:  1rem;
+}
+
+.input-width{
+    width: 100%;
+    height: 35px;
+}
+
+.login-btn{
+    margin-bottom: 20px;
+    width: 80%;
+    height: 40px;
+    background-color: #F9A826;
+    border: none;
+    font-family: 'Roboto';
+    margin-top: 10px;
+}
+
+.login-p{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 20px;
+}
